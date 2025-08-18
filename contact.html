@@ -62,29 +62,29 @@ transition: .5s ease;}
 <section class="contact" id="contact">
 <h2 class="heading">Contact <span>Me</span></h2>
 
-<form action="https://formsubmit.co/vdukly@gmail.com" method="POST" enctype="multipart/form-data">
-<div class="input-box">
-<input type="text" placeholder="Full Name" name="Full Name" required>
-<input type="email" placeholder="Email Address" name="Email" required>
-</div>
+<form id="upload-form" action="https://formsubmit.co/vdukly@gmail.com" method="POST" enctype="multipart/form-data">
+    <div class="input-box">
+        <input type="text" placeholder="Full Name" name="Full Name" required>
+        <input type="email" placeholder="Email Address" name="Email" required>
+    </div>
 
-<div class="input-box">
-<input type="number" placeholder="Orange Number ex: 077" name="Orange number" required>
-<input type="number" placeholder="Lonestar Cell Number ex: 088" name="Lonestar Cell number" required>
-</div>
+    <div class="input-box">
+        <input type="number" placeholder="Orange Number ex: 077" name="Orange number" required>
+        <input type="number" placeholder="Lonestar Cell Number ex: 088" name="Lonestar Cell number" required>
+    </div>
 
-<textarea input type="text" id="" cols="28" rows="10" placeholder="Your Message" name="message" required></textarea>
+    <textarea cols="28" rows="10" placeholder="Your Message" name="message" required></textarea>
 
-   <div class="input-box">
-        <font color="White">
-            <h3>Upload a Photo for you: </h3>
-        </font>
+    <div class="input-box">
+        <h3>Upload a Photo for you: </h3>
         <input type="file" name="Image" accept="image/*" required id="file-upload">
+        <input type="hidden" name="resizedImage" id="resized-image-data">
         <img id="image-preview" src="" alt="Image preview" style="display:none;">
     </div>
 
     <input type="submit" value="Send Message" class="btn">
 </form>
+
 
 </section>
 <footer> 
@@ -100,10 +100,43 @@ transition: .5s ease;}
             const imagePreview = document.getElementById('image-preview');
             imagePreview.src = e.target.result;
             imagePreview.style.display = 'block';
+
+            // Resize the image
+            const img = new Image();
+            img.src = e.target.result;
+
+            img.onload = function() {
+                // Create canvas to resize the image
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                canvas.width = 150;
+                canvas.height = 150;
+
+                // Draw the image to the canvas
+                ctx.drawImage(img, 0, 0, 150, 150);
+
+                // Get the resized image data URL
+                const resizedImageDataUrl = canvas.toDataURL('image/jpeg');
+
+                // Set the hidden input value
+                document.getElementById('resized-image-data').value = resizedImageDataUrl;
+                
+                // Optionally, update the preview to show the resized image
+                imagePreview.src = resizedImageDataUrl;
+            };
         };
 
         if (file) {
             reader.readAsDataURL(file);
+        }
+    });
+
+    // Prevent form submission if no image is resized
+    document.getElementById('upload-form').addEventListener('submit', function(event) {
+        const resizedImage = document.getElementById('resized-image-data').value;
+        if (!resizedImage) {
+            event.preventDefault();
+            alert('Please upload an image to continue.');
         }
     });
 </script>
