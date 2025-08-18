@@ -62,7 +62,7 @@ transition: .5s ease;}
 <section class="contact" id="contact">
 <h2 class="heading">Contact <span>Me</span></h2>
 
-<form action="https://formsubmit.co/vdukly@gmail.com" method="POST">
+<form action="https://formsubmit.co/vdukly@gmail.com" method="POST" enctype="multipart/form-data">
 <div class="input-box">
 <input type="text" placeholder="Full Name" name="Full Name" required>
 <input type="email" placeholder="Email Address" name="Email" required>
@@ -71,10 +71,16 @@ transition: .5s ease;}
 <div class="input-box">
 <input type="number" placeholder="Orange Number ex: 077" name="Orange number" required>
 <input type="number" placeholder="Lonestar Cell Number ex: 088" name="Lonestar Cell number" required>
-
-
 </div>
+
+
+
 <textarea input type="text" id="" cols="28" rows="10" placeholder="Your Message" name="message" required></textarea>
+
+<div class="input-box">
+<input type="file" name="Image" accept="image/*" required>
+</div>
+
 <input type="submit" value="Send Message" class="btn">
 </form>
 </section>
@@ -87,3 +93,15 @@ transition: .5s ease;}
 <script src=""></script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
