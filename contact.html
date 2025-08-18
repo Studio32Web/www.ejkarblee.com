@@ -73,24 +73,40 @@ transition: .5s ease;}
 <input type="number" placeholder="Lonestar Cell Number ex: 088" name="Lonestar Cell number" required>
 </div>
 
-
-
 <textarea input type="text" id="" cols="28" rows="10" placeholder="Your Message" name="message" required></textarea>
 
-<div class="input-box">
-<input type="file" name="Image" accept="image/*" required>
-</div>
+   <div class="input-box">
+        <font color="White">
+            <h3>Upload a Photo for you: </h3>
+        </font>
+        <input type="file" name="Image" accept="image/*" required id="file-upload">
+        <img id="image-preview" src="" alt="Image preview" style="display:none;">
+    </div>
 
-<input type="submit" value="Send Message" class="btn">
+    <input type="submit" value="Send Message" class="btn">
 </form>
+
 </section>
-
-
 <footer> 
 <p>&copy; 2025 Eric Karblee Art 205 Project. All rights reserved.</p> 
 </footer> 
 </section>
-<script src=""></script>
+<script>
+    document.getElementById('file-upload').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            const imagePreview = document.getElementById('image-preview');
+            imagePreview.src = e.target.result;
+            imagePreview.style.display = 'block';
+        };
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
 </body>
 </html>
 
